@@ -77,6 +77,7 @@ module Anchored
     end
 
     def anchor_tag(href, text, options)
+      options = options.dup
       if (domain = options.delete(:domain))
         remove_target_if_local href, domain, options
       end

@@ -254,6 +254,13 @@ class LinkerTest < Minitest::Test
       Anchored::Linker.auto_link("hello http://example.com/x.", target: "_blank", domain: "ample.com")
   end
 
+  def test_autolink_options_with_many
+    text = "hello http://x.com/x. hello http://y.com/x."
+    expected = %(hello <a href="http://x.com/x">http://x.com/x</a>. ) +
+               %(hello <a href="http://y.com/x" target="_blank">http://y.com/x</a>.)
+    assert_equal expected, Anchored::Linker.auto_link(text, target: "_blank", domain: "x.com")
+  end
+
   private
 
   def auto_link(*args, &block)
