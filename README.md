@@ -8,7 +8,7 @@
 
 Ruby auto-linking of only URLs, with no HTML sanitization.
 
-Copied from https://github.com/tenderlove/rails_autolink.
+Forked from https://github.com/tenderlove/rails_autolink.
 
 ## Install
 
