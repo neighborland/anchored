@@ -54,7 +54,7 @@ class LinkerTest < Minitest::Test
     url = "http://example.com/album?a&b=c"
 
     actual = auto_link("My pic: #{pic} -- #{url}") do |link|
-      if link.match?(/\.(jpg|gif|png)$/i)
+      if link.match(/\.(jpg|gif|png)$/i)
         %(<img src="#{link}" width="160px">)
       else
         link
