@@ -1,3 +1,9 @@
+[![Gem Version](https://badge.fury.io/rb/anchored.svg)][gem]
+[![Build Status](https://travis-ci.org/neighborland/anchored.svg?branch=master)][build]
+
+[gem]: http://rubygems.org/gems/anchored
+[build]: https://travis-ci.org/neighborland/anchored
+
 # Anchored
 
 Ruby auto-linking of only URLs, with no HTML sanitization.
