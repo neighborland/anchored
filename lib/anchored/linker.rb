@@ -9,6 +9,18 @@ module Anchored
       auto_link_urls(text, options, &block)
     end
 
+    # remove_target_if_local("http://same.com/x", "same.com", target: "_blank")
+    # => <a href="http://same.com/x">http://same.com/x</a>
+    #
+    # remove_target_if_local("http://same.com/x", "different.com", target: "_blank")
+    # => <a href="http://same.com/x" target="_blank">http://same.com/x</a>
+    #
+    # modifies options in place
+    def remove_target_if_local(href, domain, options)
+      return unless options[:target]
+      options.delete(:target) if href.include?("//#{domain}")
+    end
+
     private
 
     AUTO_LINK_RE = %r{(?: ((?:ftp|http|https):)// | www\. )[^\s<\u00A0"]+}ix

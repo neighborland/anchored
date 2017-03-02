@@ -208,6 +208,44 @@ class LinkerTest < Minitest::Test
     assert_equal generate_result(url), auto_link(url)
   end
 
+  def test_remove_target_if_local
+    url = "http://example.com/yo?x"
+    options = {}
+    Anchored::Linker.remove_target_if_local url, "example.com", options
+    assert_equal({}, options)
+
+    options = { class: "x" }
+    Anchored::Linker.remove_target_if_local url, "example.com", options
+    assert_equal({ class: "x" }, options)
+
+    options = { target: "x" }
+    Anchored::Linker.remove_target_if_local url, "example.com", options
+    assert_equal({}, options)
+
+    options = { class: "x", target: "x" }
+    Anchored::Linker.remove_target_if_local url, "example.com", options
+    assert_equal({ class: "x" }, options)
+  end
+
+  def test_remove_target_not_local
+    url = "http://example.com/yo?x"
+    options = {}
+    Anchored::Linker.remove_target_if_local url, "x.com", options
+    assert_equal({}, options)
+
+    options = { class: "x" }
+    Anchored::Linker.remove_target_if_local url, "x.com", options
+    assert_equal({ class: "x" }, options)
+
+    options = { target: "x" }
+    Anchored::Linker.remove_target_if_local url, "x.com", options
+    assert_equal({ target: "x" }, options)
+
+    options = { class: "x", target: "x" }
+    Anchored::Linker.remove_target_if_local url, "x.com", options
+    assert_equal({ class: "x", target: "x" }, options)
+  end
+
   private
 
   def auto_link(*args, &block)
