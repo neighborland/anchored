@@ -27,16 +27,18 @@ module Anchored
     # is yielded and the result is used as the link text.
     def auto_link_urls(text, options = {})
       text.gsub(AUTO_LINK_RE) do
-        scheme, href = $1, $&
+        match = Regexp.last_match
+        href = match[0]
+        scheme = match[1]
         punctuation = []
 
-        if auto_linked?($`, $')
+        if auto_linked?(match)
           # do not change string; URL is already linked
           href
         else
           # don't include trailing punctuation character as part of the URL
           while href.sub!(PUNCTUATION_RE, "")
-            punctuation.push $&
+            punctuation.push Regexp.last_match(0)
             if (opening = BRACKETS[punctuation.last]) && href.scan(opening).size > href.scan(punctuation.last).size
               href << punctuation.pop
               break
@@ -53,9 +55,12 @@ module Anchored
     end
 
     # Detects already linked context or position in the middle of a tag
-    def auto_linked?(left, right)
+    # Note: this changes the current Regexp
+    def auto_linked?(match)
+      left = match.pre_match
+      right = match.post_match
       (left =~ AUTO_LINK_CRE[0] && right =~ AUTO_LINK_CRE[1]) ||
-        (left.rindex(AUTO_LINK_CRE[2]) && $' !~ AUTO_LINK_CRE[3])
+        (left.rindex(AUTO_LINK_CRE[2]) && Regexp.last_match.post_match !~ AUTO_LINK_CRE[3])
     end
 
     def anchor_attrs(options)

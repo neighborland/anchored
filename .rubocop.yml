@@ -31,3 +31,6 @@ Style/StringLiterals:
 
 Style/TrailingCommaInLiteral:
   Enabled: false
+
+Style/SpaceInsideHashLiteralBraces:
+  Enabled: false
