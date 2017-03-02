@@ -58,7 +58,7 @@ module Anchored
           href = "http://" + href unless scheme
 
           # content_tag(:a, link_text, html.merge(href: href)) + punctuation.reverse.join('')
-          %(<a href="#{href}"#{anchor_attrs(options)}>#{link_text}</a>) + punctuation.reverse.join
+          anchor_tag(href, link_text, options) + punctuation.reverse.join
         end
       end
     end
@@ -74,6 +74,13 @@ module Anchored
 
     def anchor_attrs(options)
       options.map { |k, v| %(#{k}="#{v}") }.unshift("").join(" ")
+    end
+
+    def anchor_tag(href, text, options)
+      if (domain = options.delete(:domain))
+        remove_target_if_local href, domain, options
+      end
+      %(<a href="#{href}"#{anchor_attrs(options)}>#{text}</a>)
     end
   end
 end

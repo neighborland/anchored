@@ -246,6 +246,14 @@ class LinkerTest < Minitest::Test
     assert_equal({ class: "x", target: "x" }, options)
   end
 
+  def test_autolink_with_target_and_domain
+    assert_equal %(hello <a href="http://example.com/x">http://example.com/x</a>.),
+      Anchored::Linker.auto_link("hello http://example.com/x.", target: "_blank", domain: "example.com")
+
+    assert_equal %(hello <a href="http://example.com/x" target="_blank">http://example.com/x</a>.),
+      Anchored::Linker.auto_link("hello http://example.com/x.", target: "_blank", domain: "ample.com")
+  end
+
   private
 
   def auto_link(*args, &block)

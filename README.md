@@ -26,14 +26,27 @@ require "anchored"
 Anchored::Linker.auto_link("text")
 => "text"
 
+
+# Wrap URLs in anchors:
+
 Anchored::Linker.auto_link("hello www.google.com.")
 => "hello <a href='http://www.google.com'>www.google.com</a>."
+
+
+# Set anchor attributes. Alter the link text with a block: 
 
 text = "Welcome to http://www.dogedogedoge.com/."
 Anchored::Linker.auto_link(text, target: "_blank") do |text|
   text[0...12] + "..."
 end
-# => "Welcome to <a href=\"http://www.dogedogedoge.com/\" target=\"_blank\">http://dogedo...</a>.
+# => "Welcome to <a href=\"http://www.dogedogedoge.com/\" target=\"_blank\">http://dogedo...</a>."
+
+
+# Remove the target attribute when a URL matches a domain:
+
+text = "Hello http://www.example.com/."
+Anchored::Linker.auto_link(text, target: "_blank", domain: "example.com")
+# => "Hello <a href=\"http://www.example.com/\">http://example.com</a>."
 ```
 
 Anchored does not sanitize html. Be sure to use something else for that.
@@ -44,6 +57,7 @@ Anchored does not sanitize html. Be sure to use something else for that.
 * No email auto-linking
 * No dependencies on rails
 * Dropped support for uncommon protocols (gopher, etc)
+* Option to remove target attribute when URL matches a domain
 
 ## Development
 
