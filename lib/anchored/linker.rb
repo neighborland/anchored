@@ -11,10 +11,7 @@ module Anchored
 
     private
 
-    AUTO_LINK_RE = %r{
-        (?: ((?:ftp|http|https):)// | www\. )
-        [^\s<\u00A0"]+
-      }ix
+    AUTO_LINK_RE = %r{(?: ((?:ftp|http|https):)// | www\. )[^\s<\u00A0"]+}ix
 
     # regexps for determining context, used high-volume
     AUTO_LINK_CRE = [/<[^>]+$/, /^[^>]*>/, /<a\b.*?>/i, /<\/a>/i].freeze
@@ -49,7 +46,7 @@ module Anchored
           href = "http://" + href unless scheme
 
           # content_tag(:a, link_text, html.merge(href: href)) + punctuation.reverse.join('')
-          %(<a href="#{href}"#{anchor_attrs(options)}>#{link_text}</a>) + punctuation.reverse.join("")
+          %(<a href="#{href}"#{anchor_attrs(options)}>#{link_text}</a>) + punctuation.reverse.join
         end
       end
     end
