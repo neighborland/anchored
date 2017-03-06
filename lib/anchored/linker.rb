@@ -35,7 +35,8 @@ module Anchored
     # Turns all urls into clickable links.  If a block is given, each url
     # is yielded and the result is used as the link text.
     def auto_link_urls(text, options = {})
-      text.gsub(AUTO_LINK_RE) do
+      # to_str is for SafeBuffer objects (text marked html_safe)
+      text.to_str.gsub(AUTO_LINK_RE) do
         match = Regexp.last_match
         href = match[0]
         scheme = match[1]
