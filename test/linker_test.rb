@@ -266,9 +266,4 @@ class LinkerTest < Minitest::Test
   def auto_link(*args, &block)
     Anchored::Linker.auto_link(*args, &block)
   end
-
-  def generate_result(link_text, href = nil)
-    href ||= link_text
-    %(<a href="#{href}">#{link_text}</a>)
-  end
 end
