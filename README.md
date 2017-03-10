@@ -30,14 +30,14 @@ $ gem install anchored
 
 ```ruby
 Anchored::Linker.auto_link("text")
-=> "text"
+# => "text"
 ```
 
 #### Wrap URLs in anchors:
 
 ```ruby
 Anchored::Linker.auto_link("hello www.example.com.")
-=> "hello <a href='http://www.example.com'>www.example.com</a>."
+# => "hello <a href='http://www.example.com'>www.example.com</a>."
 ```
 
 #### Set anchor attributes. Alter the link text with a block: 
