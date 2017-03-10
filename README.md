@@ -26,30 +26,33 @@ $ gem install anchored
 
 ## Usage
 
-```
-require "anchored"
+#### Pass-through
 
+```ruby
 Anchored::Linker.auto_link("text")
 => "text"
+```
 
+#### Wrap URLs in anchors:
 
-# Wrap URLs in anchors:
+```ruby
+Anchored::Linker.auto_link("hello www.example.com.")
+=> "hello <a href='http://www.example.com'>www.example.com</a>."
+```
 
-Anchored::Linker.auto_link("hello www.google.com.")
-=> "hello <a href='http://www.google.com'>www.google.com</a>."
+#### Set anchor attributes. Alter the link text with a block: 
 
-
-# Set anchor attributes. Alter the link text with a block: 
-
-text = "Welcome to http://www.dogedogedoge.com/."
+```ruby
+text = "Welcome to http://www.example.com/."
 Anchored::Linker.auto_link(text, target: "_blank") do |text|
   text[0...12] + "..."
 end
-# => "Welcome to <a href=\"http://www.dogedogedoge.com/\" target=\"_blank\">http://dogedo...</a>."
+# => "Welcome to <a href=\"http://www.example.com/\" target=\"_blank\">http://exampl...</a>."
+```
 
+#### Remove the target attribute when a URL matches a domain:
 
-# Remove the target attribute when a URL matches a domain:
-
+```ruby
 text = "Hello http://www.example.com/."
 Anchored::Linker.auto_link(text, target: "_blank", domain: "example.com")
 # => "Hello <a href=\"http://www.example.com/\">http://example.com</a>."
