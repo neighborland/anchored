@@ -28,7 +28,7 @@ module Anchored
     # regexps for determining context, used high-volume
     AUTO_LINK_CRE = [/<[^>]+$/, /^[^>]*>/, /<a\b.*?>/i, /<\/a>/i].freeze
 
-    PUNCTUATION_RE = /[^\p{Word}\/-=&]$/
+    PUNCTUATION_RE = /[^\p{Word}\/=&]$/
 
     BRACKETS = { "]" => "[", ")" => "(", "}" => "{" }.freeze
 
