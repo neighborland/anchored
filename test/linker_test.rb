@@ -46,7 +46,7 @@ class LinkerTest < Minitest::Test
   def test_auto_link_with_block
     url = "http://api.rubyonrails.com/Foo.html"
     assert_equal %(<p><a href="#{url}">api.rubyonrails...</a><br /></p>),
-      auto_link("<p>#{url}<br /></p>") { |url| url.split("http://").last[0...15] + "..." }
+      auto_link("<p>#{url}<br /></p>") { |u| u.split("http://").last[0...15] + "..." }
   end
 
   def test_auto_link_with_block_with_html
