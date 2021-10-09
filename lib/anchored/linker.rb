@@ -56,7 +56,7 @@ module Anchored
           end
 
           link_text = block_given? ? yield(href) : href
-          href = "http://" + href unless scheme
+          href = "https://" + href unless scheme
 
           # content_tag(:a, link_text, html.merge(href: href)) + punctuation.reverse.join('')
           anchor_tag(href, link_text, options) + punctuation.reverse.join
